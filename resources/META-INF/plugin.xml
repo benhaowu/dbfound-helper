@@ -1,0 +1,75 @@
+<idea-plugin>
+  <id>>com.ben.df</id>
+  <name>dbfound-helper</name>
+  <version>1.7.0</version>
+  <vendor email="bentouwu@163.com" url="https://github.com/benhaowu">WUBENHAO</vendor>
+
+  <description><![CDATA[
+     dbfound-helper a idea plugin for dbfound framework <br/>
+     dbfound-Helper is a plug-in that enhances IDEA support for DbFound framework,here is the main functions:<br/>
+    <ul>
+        <li>Quickly jump from java to model file</li>
+        <li>Quickly jump from model to model file</li>
+        <li>Quickly jump from jsp to model file</li>
+        <li>SQL language injection to model file</li>
+        <li>Generate the Model File and Model template</li>
+    </ul><br/>
+
+    dbfound-helper是一款增强idea对dbfound框架支持的插件，主要功能如下：</br>
+     <ul>
+        <li>快速从java代码跳转model文件</li>
+        <li>快速从model文件跳转model文件</li>
+        <li>快速从jsp文件跳转model文件</li>
+        <li>对model文件插入SQL语法检测</li>
+        <li>生成model file和model模板</li>
+    </ul>
+    ]]></description>
+
+  <change-notes><![CDATA[
+     <h4>1.7.0</h4>
+     Contains the following features :</br>
+     <ul>
+        <li>Added JSP jump model file function</li>
+        <li>sqlServer & oracle lib file update</li>
+    </ul>
+    ]]>
+  </change-notes>
+
+  <idea-version since-build="184.0"/>
+
+  <depends>com.intellij.modules.lang</depends>
+  <depends>com.intellij.modules.java</depends>
+  <depends>org.jetbrains.kotlin</depends>
+  <depends>org.jetbrains.plugins.yaml</depends>
+  <depends>com.intellij.properties</depends>
+  <depends>com.intellij.database</depends>
+  <depends>com.intellij.modules.platform</depends>
+  <depends optional="true" config-file="injection-model.xml">org.intellij.intelliLang</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <codeInsight.lineMarkerProvider language="JAVA" implementationClass="com.ben.df.provider.ClassToModelNavProvider"/>
+    <codeInsight.lineMarkerProvider language="XML" implementationClass="com.ben.df.provider.ModelToModelNavProvider"/>
+    <codeInsight.lineMarkerProvider language="XML" implementationClass="com.ben.df.provider.JspToModelNavProvider"/>
+    <dom.fileDescription implementation="com.ben.df.dom.description.ModelDescription"/>
+    <fileTemplateGroup implementation="com.ben.df.template.ModelFileTemplateDescriptorFactory"/>
+    <completion.contributor id="ModelCompletionContributor" language="SQL"
+                            implementationClass="com.ben.df.contributor.ModelCompletionContributor"/>
+    <completion.contributor language="XML"
+                            implementationClass="com.ben.df.contributor.ModelAttributeContributor"/>
+    <highlightErrorFilter implementation="com.ben.df.filter.DfSyntaxErrorFilter"/>
+    <highlightVisitor implementation="com.ben.df.filter.SqlRainbowVisitor"/>
+  </extensions>
+
+  <actions>
+    <action id="GenerateDfFile" class="com.ben.df.action.PopUpGenerateForm" text="Dbfound Table Model File"
+            description="Generate dbFound file" icon="AllIcons.Nodes.Models">
+      <add-to-group group-id="NewGroup" anchor="after" relative-to-action="ModelFile"/>
+    </action>
+
+    <action id="ModelFile" class="com.ben.df.action.CreateDbFoundAction">
+      <add-to-group group-id="NewGroup" anchor="after" relative-to-action="FileTemplateSeparatorGroup"/>
+    </action>
+  </actions>
+
+
+</idea-plugin>

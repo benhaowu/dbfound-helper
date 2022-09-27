@@ -1,0 +1,18 @@
+<LanguageInjectionConfiguration>
+    <injection language="SQL" injector-id="xml">
+        <display-name>Model Xml Injections</display-name>
+        <single-file />
+        <place>
+            <![CDATA[
+             xmlTag().withLocalName(string().oneOf("sql","executeSql","batchExecuteSql","querySql")).
+                    withNamespace(string().equalTo("http://dbfound.googlecode.com/model"))
+            ]]>
+        </place>
+        <place>
+            <![CDATA[
+            xmlAttribute().withLocalName(string().oneOf("where","when","cursor","express")).withParent(xmlTag().
+                withNamespace(string().equalTo("http://dbfound.googlecode.com/model")))
+            ]]>
+        </place>
+    </injection>
+</LanguageInjectionConfiguration>
